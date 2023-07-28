@@ -1,0 +1,4 @@
+enum ViewRoutesEnum {
+  home,
+  detail,
+}

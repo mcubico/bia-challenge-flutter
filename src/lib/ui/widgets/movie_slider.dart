@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:src/router/app_router.dart';
+
+import '../helpers/helpers.dart';
 
 class MovieSlider extends StatelessWidget {
   @override
@@ -40,7 +43,11 @@ class _MoviePoster extends StatelessWidget {
       child: Column(
         children: [
           GestureDetector(
-            onTap: () => Navigator.pushNamed(context, 'details', arguments: ''),
+            onTap: () => Navigator.pushNamed(
+              context,
+              AppRoutes.getViewRoute(ViewRoutesEnum.detail),
+              arguments: '',
+            ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: const FadeInImage(

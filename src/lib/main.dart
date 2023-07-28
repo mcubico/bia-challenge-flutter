@@ -1,8 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:src/ui/screens/details.screen.dart';
-import 'package:src/ui/screens/home.screen.dart';
+import 'package:provider/provider.dart';
+import 'package:src/router/app_router.dart';
+import 'package:src/ui/providers/the-movies-db/movies.provider.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(const AppState());
+
+class AppState extends StatelessWidget {
+  const AppState({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => MoviesProvider(),
+          lazy: false,
+        )
+      ],
+      child: const MyApp(),
+    );
+  }
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -13,13 +31,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Marvel Movies Challenge',
-      initialRoute: 'home',
-      routes: {
-        'home': (context) => HomeScreen(),
-        'details': (context) => DetailsScreen()
-      },
-      theme: ThemeData.light()
-          .copyWith(appBarTheme: const AppBarTheme(color: Colors.indigo)),
+      initialRoute: AppRoutes.initialRoute,
+      routes: AppRoutes.getAppRoutes(),
+      theme: ThemeData.light().copyWith(
+        appBarTheme: const AppBarTheme(color: Colors.indigo),
+      ),
     );
   }
 }

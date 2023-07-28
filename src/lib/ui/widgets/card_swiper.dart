@@ -1,5 +1,8 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:src/ui/helpers/enumerators/view_routes.enum.helper.dart';
+
+import '../../router/app_router.dart';
 
 class CardSwiper extends StatelessWidget {
   @override
@@ -15,7 +18,11 @@ class CardSwiper extends StatelessWidget {
         itemWidth: size.width * 0.6,
         itemHeight: size.height * 0.4,
         itemBuilder: (context, index) => GestureDetector(
-          onTap: () => Navigator.pushNamed(context, 'details', arguments: ''),
+          onTap: () => Navigator.pushNamed(
+            context,
+            AppRoutes.getViewRoute(ViewRoutesEnum.detail),
+            arguments: '',
+          ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: const FadeInImage(
