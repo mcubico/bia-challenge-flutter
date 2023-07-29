@@ -11,9 +11,13 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final MoviesProvider moviesProvider = Provider.of<MoviesProvider>(context);
+    final CharacterProvider charactersProvider =
+        Provider.of<CharacterProvider>(context);
+
     List<BasicItemModel> items = [];
-    final moviesProvider = Provider.of<MoviesProvider>(context);
-    final charactersProvider = Provider.of<CharacterProvider>(context);
+    List<BasicItemModel> popularItems = moviesProvider.popularMoviesData;
+
     items = charactersProvider.characters;
     items = moviesProvider.moviesData;
 
@@ -30,9 +34,10 @@ class HomeScreen extends StatelessWidget {
           CardSwiper(items: items),
 
           // Slider Movies
-          MovieSlider(
-            title: 'Most Populars',
-            movies: items,
+          ItemSlider(
+            title: 'Most Popular',
+            items: popularItems,
+            onNextPage: () => moviesProvider.popularMovies(),
           ),
         ]),
       ),

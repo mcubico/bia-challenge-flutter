@@ -20,7 +20,7 @@ class AppState extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => CharacterProvider(),
-          lazy: false,
+          lazy: true,
         )
       ],
       child: const MyApp(),
