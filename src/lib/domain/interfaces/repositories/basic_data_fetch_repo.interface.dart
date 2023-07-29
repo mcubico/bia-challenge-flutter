@@ -1,5 +1,5 @@
 import '../../models/models.dart';
 
 abstract class IBasicDataFetchRepository {
-  Future<List<BasicItemModel>> fetch();
+  Future<List<ItemModel>> fetch();
 }

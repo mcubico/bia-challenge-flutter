@@ -10,14 +10,14 @@ class CharactersRepository implements IBasicDataFetchRepository {
   }
 
   @override
-  Future<List<BasicItemModel>> fetch() async {
+  Future<List<ItemModel>> fetch() async {
     CharacterDataWrapperModel apiResponse = await _api.fetch();
     if (apiResponse.data == null || apiResponse.data?.results == null) {
       return [];
     }
 
-    Iterable<BasicItemModel> response = apiResponse.data!.results!.map(
-        (character) => BasicItemModel(
+    Iterable<ItemModel> response = apiResponse.data!.results!.map((character) =>
+        ItemModel(
             posterPathImg: character.fullUrlPosterImg,
             id: character.id.toString()));
 

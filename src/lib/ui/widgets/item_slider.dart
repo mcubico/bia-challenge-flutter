@@ -16,7 +16,7 @@ class ItemSlider extends StatefulWidget {
   State<ItemSlider> createState() => _ItemSliderState();
 
   final String? title;
-  final List<BasicItemModel> items;
+  final List<ItemModel> items;
   final Function onNextPage;
 }
 
@@ -27,7 +27,6 @@ class _ItemSliderState extends State<ItemSlider> {
     scrollController.addListener(() {
       if (scrollController.position.pixels >=
           scrollController.position.maxScrollExtent - 500) {
-        print('call on next page function from Item Slider');
         widget.onNextPage();
       }
     });
@@ -52,7 +51,11 @@ class _ItemSliderState extends State<ItemSlider> {
                 ),
               ),
             ),
+
+          // Sized Box
           const SizedBox(height: 5),
+
+          // List View
           Expanded(
             child: ListView.builder(
               controller: scrollController,
@@ -93,7 +96,7 @@ class _ItemPoster extends StatelessWidget {
             onTap: () => Navigator.pushNamed(
               context,
               AppRoutes.getViewRoute(ViewRoutesEnum.detail),
-              arguments: '',
+              arguments: itemData,
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
@@ -109,7 +112,7 @@ class _ItemPoster extends StatelessWidget {
           const SizedBox(height: 5),
           Text(
             itemData.title ?? 'no-name',
-            maxLines: 2,
+            maxLines: 1,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
           ),
@@ -118,5 +121,5 @@ class _ItemPoster extends StatelessWidget {
     );
   }
 
-  final BasicItemModel itemData;
+  final ItemModel itemData;
 }

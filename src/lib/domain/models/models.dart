@@ -1,1 +1,1 @@
-export 'package:src/domain/models/basic_item.model.dart';
+export 'package:src/domain/models/item.model.dart';

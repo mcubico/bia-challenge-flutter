@@ -17,13 +17,13 @@ class MoviesProvider extends ChangeNotifier {
   }
 
   Future<void> popularMovies() async {
-    List<BasicItemModel> response = await _repo.popular();
+    List<ItemModel> response = await _repo.popular();
     popularMoviesData = [...popularMoviesData, ...response];
 
     notifyListeners();
   }
 
   late final MoviesRepository _repo;
-  List<BasicItemModel> moviesData = [];
-  List<BasicItemModel> popularMoviesData = [];
+  List<ItemModel> moviesData = [];
+  List<ItemModel> popularMoviesData = [];
 }

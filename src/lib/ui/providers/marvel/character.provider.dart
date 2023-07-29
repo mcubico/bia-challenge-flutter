@@ -15,5 +15,5 @@ class CharacterProvider extends ChangeNotifier {
   }
 
   late final CharactersRepository _repo;
-  List<BasicItemModel> characters = [];
+  List<ItemModel> characters = [];
 }

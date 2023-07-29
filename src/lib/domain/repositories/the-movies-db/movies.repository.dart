@@ -10,7 +10,7 @@ class MoviesRepository implements IBasicDataFetchRepository {
   }
 
   @override
-  Future<List<BasicItemModel>> fetch() async {
+  Future<List<ItemModel>> fetch() async {
     NowPlayingMovieResponseModel apiResponse = await _api.nowPlaying();
 
     if (apiResponse.results.isEmpty) {
@@ -18,17 +18,10 @@ class MoviesRepository implements IBasicDataFetchRepository {
     }
 
     final movies = apiResponse.results as List<MovieModel>;
-    Iterable<BasicItemModel> response = movies.map(
-      (movie) => BasicItemModel(
-        posterPathImg: movie.fullUrlPosterImg,
-        id: movie.id.toString(),
-      ),
-    );
-
-    return response.toList();
+    return _convertApiResponseToItemModel(movies);
   }
 
-  Future<List<BasicItemModel>> popular() async {
+  Future<List<ItemModel>> popular() async {
     PopularMovieResponseModel apiResponse = await _api.popular();
 
     if (apiResponse.results.isEmpty) {
@@ -36,12 +29,19 @@ class MoviesRepository implements IBasicDataFetchRepository {
     }
 
     final movies = apiResponse.results as List<MovieModel>;
-    Iterable<BasicItemModel> response = movies.map(
-      (movie) => BasicItemModel(
+    return _convertApiResponseToItemModel(movies);
+  }
+
+  List<ItemModel> _convertApiResponseToItemModel(List<MovieModel> movies) {
+    Iterable<ItemModel> response = movies.map(
+      (movie) => ItemModel(
         posterPathImg: movie.fullUrlPosterImg,
         id: movie.id.toString(),
         title: movie.originalTitle,
         overview: movie.overview,
+        originalTitle: movie.originalTitle,
+        voteAverage: movie.voteAverage,
+        backDropPathImg: movie.fullUrlBackDropImg
       ),
     );
 

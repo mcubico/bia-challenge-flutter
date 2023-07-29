@@ -15,8 +15,8 @@ class HomeScreen extends StatelessWidget {
     final CharacterProvider charactersProvider =
         Provider.of<CharacterProvider>(context);
 
-    List<BasicItemModel> items = [];
-    List<BasicItemModel> popularItems = moviesProvider.popularMoviesData;
+    List<ItemModel> items = [];
+    List<ItemModel> popularItems = moviesProvider.popularMoviesData;
 
     items = charactersProvider.characters;
     items = moviesProvider.moviesData;

@@ -63,6 +63,10 @@ class MovieModel {
       ? 'https://image.tmdb.org/t/p/w500$posterPath'
       : 'https://i.stack.imgur.com/GNhx0.png';
 
+  String get fullUrlBackDropImg => backdropPath != null
+      ? 'https://image.tmdb.org/t/p/w500$backdropPath'
+      : 'https://i.stack.imgur.com/GNhx0.png';
+
   final String? posterPath;
   final bool adult;
   final String overview;
