@@ -1,19 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:src/domain/repositories/the-movies-db/movies.repository.dart';
+import 'package:src/domain/repositories/the-movies-db/repositories.dart';
 
 import '../../../domain/models/models.dart';
 
 class MoviesProvider extends ChangeNotifier {
   MoviesProvider() {
     _repo = MoviesRepository();
-    fetch();
+    nowPlayingMovies();
+    popularMovies();
   }
 
-  Future<void> fetch() async {
-    movies = await _repo.fetch();
+  Future<void> nowPlayingMovies() async {
+    moviesData = await _repo.fetch();
+
+    notifyListeners();
+  }
+
+  Future<void> popularMovies() async {
+    List<BasicItemModel> response = await _repo.popular();
+    popularMoviesData = [...popularMoviesData, ...response];
+
     notifyListeners();
   }
 
   late final MoviesRepository _repo;
-  List<BasicItemModel>? movies = [];
+  List<BasicItemModel> moviesData = [];
+  List<BasicItemModel> popularMoviesData = [];
 }

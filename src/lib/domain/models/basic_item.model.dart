@@ -1,9 +1,13 @@
 class BasicItemModel {
-  final String posterPathImg;
   final String id;
+  final String posterPathImg;
+  final String? title;
+  final String? overview;
 
   BasicItemModel({
-    required this.posterPathImg,
     required this.id,
+    required this.posterPathImg,
+    this.title,
+    this.overview,
   });
 }

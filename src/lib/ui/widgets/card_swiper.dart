@@ -1,6 +1,6 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
-import 'package:src/domain/models/basic_item.model.dart';
+import 'package:src/domain/models/models.dart';
 import 'package:src/ui/helpers/enumerators/view_routes.enum.helper.dart';
 
 import '../../router/app_router.dart';
@@ -11,6 +11,16 @@ class CardSwiper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
+    if (items.isEmpty) {
+      return SizedBox(
+        width: double.infinity,
+        height: size.height * 0.5,
+        child: const Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
 
     return SizedBox(
       width: double.infinity,

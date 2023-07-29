@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:src/domain/models/basic_item.model.dart';
+import 'package:src/domain/models/models.dart';
 import 'package:src/ui/widgets/widgets.dart';
 
 import '../providers/marvel/providers.dart';
@@ -14,8 +14,8 @@ class HomeScreen extends StatelessWidget {
     List<BasicItemModel> items = [];
     final moviesProvider = Provider.of<MoviesProvider>(context);
     final charactersProvider = Provider.of<CharacterProvider>(context);
-    items = charactersProvider.characters ?? [];
-    items = moviesProvider.movies ?? [];
+    items = charactersProvider.characters;
+    items = moviesProvider.moviesData;
 
     return Scaffold(
       appBar: AppBar(
@@ -30,7 +30,10 @@ class HomeScreen extends StatelessWidget {
           CardSwiper(items: items),
 
           // Slider Movies
-          MovieSlider(),
+          MovieSlider(
+            title: 'Most Populars',
+            movies: items,
+          ),
         ]),
       ),
     );

@@ -1,39 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:src/domain/models/models.dart';
 import 'package:src/router/app_router.dart';
 
 import '../helpers/helpers.dart';
 
 class MovieSlider extends StatelessWidget {
+  const MovieSlider({
+    super.key,
+    required this.movies,
+    this.title,
+  });
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: 280,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
-              'Most Popular',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          if (title != null)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                title!,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
-          ),
           const SizedBox(height: 5),
           Expanded(
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: 20,
-              itemBuilder: (context, index) => _MoviePoster(),
+              itemCount: movies.length,
+              itemBuilder: (context, index) => _MoviePoster(
+                movie: movies[index],
+              ),
             ),
           ),
         ],
       ),
     );
   }
+
+  final String? title;
+  final List<BasicItemModel> movies;
 }
 
 class _MoviePoster extends StatelessWidget {
+  const _MoviePoster({
+    required this.movie,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,9 +70,9 @@ class _MoviePoster extends StatelessWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: const FadeInImage(
-                placeholder: AssetImage('assets/no-image-camera.jpg'),
-                image: NetworkImage('https://via.placeholder.com/300x400'),
+              child: FadeInImage(
+                placeholder: const AssetImage('assets/no-image-camera.jpg'),
+                image: NetworkImage(movie.posterPathImg),
                 fit: BoxFit.cover,
                 width: 130,
                 height: 190,
@@ -60,8 +80,8 @@ class _MoviePoster extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 5),
-          const Text(
-            'Officia ut consectetur id occaecat laborum excepteur.',
+          Text(
+            movie.title ?? 'no-name',
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
@@ -70,4 +90,6 @@ class _MoviePoster extends StatelessWidget {
       ),
     );
   }
+
+  final BasicItemModel movie;
 }
