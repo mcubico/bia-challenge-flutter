@@ -59,6 +59,10 @@ class MovieModel {
         voteAverageDataName: voteAverage,
       };
 
+  String get fullUrlPosterImg => posterPath != null
+      ? 'https://image.tmdb.org/t/p/w500$posterPath'
+      : 'https://i.stack.imgur.com/GNhx0.png';
+
   final String? posterPath;
   final bool adult;
   final String overview;

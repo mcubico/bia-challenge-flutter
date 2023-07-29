@@ -18,10 +18,10 @@ class AppState extends StatelessWidget {
           create: (context) => MoviesProvider(),
           lazy: false,
         ),
-        ChangeNotifierProvider(
-          create: (context) => CharacterNotifierProvider(),
-          lazy: false,
-        )
+        // ChangeNotifierProvider(
+        //   create: (context) => CharacterNotifierProvider(),
+        //   lazy: false,
+        // )
       ],
       child: const MyApp(),
     );

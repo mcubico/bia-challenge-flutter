@@ -3,14 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:src/domain/models/the-movies-db/models.dart';
 
 class MoviesProvider extends ChangeNotifier {
-  final String _apiKeyLabel = 'api_key';
-  final String _apiKeyValue = '4613309449858363e0d3f3dec0565901';
-  final String _baseUrl = 'api.themoviedb.org';
-  final String _language = 'es-Es';
-  final String _segment = '3/movie';
-
   MoviesProvider() {
-    print('Movies Provider Start');
     getMoviesNowPlaying();
   }
 
@@ -27,6 +20,16 @@ class MoviesProvider extends ChangeNotifier {
     final NowPlayingMovieResponseModel decodedResponse =
         NowPlayingMovieResponseModel.fromJson(response.body);
 
-    print(decodedResponse.totalResults);
+    onFetchNowPlayingMovies = decodedResponse.results;
+
+    notifyListeners();
   }
+
+  List<MovieModel> onFetchNowPlayingMovies = [];
+
+  final String _apiKeyLabel = 'api_key';
+  final String _apiKeyValue = '4613309449858363e0d3f3dec0565901';
+  final String _baseUrl = 'api.themoviedb.org';
+  final String _language = 'es-Es';
+  final String _segment = '3/movie';
 }
