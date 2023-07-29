@@ -3,18 +3,6 @@ import 'dart:convert';
 import '../models.dart';
 
 class CharacterModel {
-  final int? id;
-  final String? name;
-  final String? description;
-  final String? modified;
-  final ThumbnailModel? thumbnail;
-  final String? resourceUri;
-  final ItemListModel? comics;
-  final ItemListModel? series;
-  final ItemListModel? stories;
-  final ItemListModel? events;
-  final List<UrlModel>? urls;
-
   CharacterModel({
     this.id,
     this.name,
@@ -62,4 +50,20 @@ class CharacterModel {
         "urls":
             urls != null ? List<dynamic>.from(urls!.map((x) => x.toMap())) : [],
       };
+
+  get fullUrlPosterImg => thumbnail != null
+      ? '${thumbnail?.path}.${thumbnail?.extension}'
+      : 'https://i.stack.imgur.com/GNhx0.png';
+
+  final int? id;
+  final String? name;
+  final String? description;
+  final String? modified;
+  final ThumbnailModel? thumbnail;
+  final String? resourceUri;
+  final ItemListModel? comics;
+  final ItemListModel? series;
+  final ItemListModel? stories;
+  final ItemListModel? events;
+  final List<UrlModel>? urls;
 }

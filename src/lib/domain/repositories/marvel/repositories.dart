@@ -1,0 +1,1 @@
+export 'package:src/domain/repositories/marvel/characters.repository.dart';

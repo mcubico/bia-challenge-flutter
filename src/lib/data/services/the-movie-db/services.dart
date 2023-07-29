@@ -1,0 +1,1 @@
+export 'package:src/data/services/the-movie-db/movies.service.dart';
