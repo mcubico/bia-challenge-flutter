@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:src/router/app_router.dart';
 import 'package:src/ui/providers/the-movies-db/movies.provider.dart';
 
+import 'ui/providers/marvel/provider.dart';
+
 void main() => runApp(const AppState());
 
 class AppState extends StatelessWidget {
@@ -14,6 +16,10 @@ class AppState extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => MoviesProvider(),
+          lazy: false,
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CharacterNotifierProvider(),
           lazy: false,
         )
       ],

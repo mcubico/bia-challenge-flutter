@@ -11,10 +11,10 @@ class MoviesProvider extends ChangeNotifier {
 
   MoviesProvider() {
     print('Movies Provider Start');
-    getOnDisplayMovies();
+    getMoviesNowPlaying();
   }
 
-  Future<void> getOnDisplayMovies() async {
+  Future<void> getMoviesNowPlaying() async {
     print('getting now playing movies');
     const String endpoint = 'now_playing';
     var url = Uri.https(_baseUrl, '$_segment/$endpoint/', {
