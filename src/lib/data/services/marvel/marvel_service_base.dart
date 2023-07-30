@@ -9,17 +9,33 @@ class MarvelServiceBase {
     _hash = md5.convert(utf8.encode('$_ts$privKey$pubKey')).toString();
   }
 
-  makeUrl(String endpoint, {int limit = 10, int offSet = 1}) => Uri.https(
-        baseUrl,
-        '$segment/$endpoint',
-        {
-          apiKeyLabel: apiKeyValue,
-          'ts': '$ts',
-          'hash': hash,
-          'limit': '$limit',
-          'offset': '$offSet'
-        },
-      );
+  Uri makeUrl(
+    String endpoint, {
+    int? limit,
+    int offSet = 1,
+    Map<String, dynamic>? additionalParameters,
+  }) {
+    Map<String, dynamic> queryParameters = {
+      apiKeyLabel: apiKeyValue,
+      'ts': '$ts',
+      'hash': hash,
+    };
+
+    if (additionalParameters != null) {
+      queryParameters.addAll(additionalParameters);
+    }
+
+    if (limit != null) {
+      queryParameters.putIfAbsent('limit', () => '$limit');
+      queryParameters.putIfAbsent('offset', () => '$offSet');
+    }
+
+    return Uri.https(
+      baseUrl,
+      '$segment/$endpoint',
+      queryParameters,
+    );
+  }
 
   String get pubKey => 'ed3a002321f17332118f942cf8ab9499';
   String get privKey => '3ad582cc225e26ee60f24eb388f429d8df6cf60a';

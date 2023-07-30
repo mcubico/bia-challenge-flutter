@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../domain/models/models.dart';
 
-class CastingCards extends StatelessWidget {
-  const CastingCards({
+class DetailCards extends StatelessWidget {
+  const DetailCards({
     super.key,
     required this.items,
   });
@@ -28,7 +28,7 @@ class CastingCards extends StatelessWidget {
       child: ListView.builder(
         itemCount: items.length,
         scrollDirection: Axis.horizontal,
-        itemBuilder: (_, int index) => _CastCard(items[index]),
+        itemBuilder: (_, int index) => _DetailCard(items[index]),
       ),
     );
   }
@@ -36,8 +36,8 @@ class CastingCards extends StatelessWidget {
   final List<ItemModel> items;
 }
 
-class _CastCard extends StatelessWidget {
-  const _CastCard(this.item);
+class _DetailCard extends StatelessWidget {
+  const _DetailCard(this.item);
 
   @override
   Widget build(BuildContext context) {

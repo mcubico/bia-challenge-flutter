@@ -16,10 +16,19 @@ class CharactersRepository implements IBasicDataFetchRepository {
       return [];
     }
 
-    Iterable<ItemModel> response = apiResponse.data!.results!.map((character) =>
-        ItemModel(
-            posterPathImg: character.fullUrlPosterImg,
-            id: character.id.toString()));
+    return _convertApiResponseToItemModel(apiResponse.data!.results!);
+  }
+
+  List<ItemModel> _convertApiResponseToItemModel(
+      List<CharacterModel> characters) {
+    Iterable<ItemModel> response = characters.map(
+      (character) => ItemModel(
+        id: character.id.toString(),
+        posterPathImg: character.fullUrlPosterImg,
+        title: character.name,
+        overview: character.description,
+      ),
+    );
 
     return response.toList();
   }

@@ -30,7 +30,7 @@ class MoviesProvider extends ChangeNotifier {
       return moviesCast[movieId]!;
     }
 
-    print('Fetching credits movies');
+    print('Fetching credits movies ($movieId)');
     List<ItemModel> response = await _repo.creditsMovies(movieId);
     moviesCast[movieId] = response;
 

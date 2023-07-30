@@ -17,6 +17,33 @@ class ComicsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<List<ItemModel>> fetchComicsByCharacterId(int characterId) async {
+    if (comicsOfCharacter.containsKey(characterId)) {
+      return comicsOfCharacter[characterId]!;
+    }
+
+    print('Fetching comics of character ($characterId)');
+    List<ItemModel> response =
+        await _repo.fetchComicsByCharacterId(characterId);
+    comicsOfCharacter[characterId] = response;
+
+    return response;
+  }
+
+  Future<List<ItemModel>> fetchCharactersOfComic(int comicId) async {
+    if (charactersOfComic.containsKey(comicId)) {
+      return charactersOfComic[comicId]!;
+    }
+
+    print('Fetching character of comics ($comicId)');
+    List<ItemModel> response = await _repo.fetchCharactersOfComic(comicId);
+    charactersOfComic[comicId] = response;
+
+    return response;
+  }
+
   late final ComicsRepository _repo;
   List<ItemModel> comics = [];
+  Map<int, List<ItemModel>> comicsOfCharacter = {};
+  Map<int, List<ItemModel>> charactersOfComic = {};
 }

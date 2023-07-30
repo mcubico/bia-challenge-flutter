@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:src/ui/widgets/casting_cards.dart';
+import 'package:src/ui/providers/marvel/providers.dart';
+import 'package:src/ui/widgets/detail_cards.dart';
 
 import '../../domain/models/models.dart';
 import '../providers/the-movies-db/providers.dart';
@@ -10,13 +11,21 @@ class DetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ItemModel itemData =
-        ModalRoute.of(context)!.settings.arguments as ItemModel;
+    final arguments = ModalRoute.of(context)!.settings.arguments as Map;
+    final ItemModel itemData = arguments['item'] as ItemModel;
+    final bool getCharacters = arguments['getCharacters'] as bool;
     final MoviesProvider moviesProvider =
         Provider.of<MoviesProvider>(context, listen: false);
+    final ComicsProvider comicsProvider =
+        Provider.of<ComicsProvider>(context, listen: false);
+    final CharactersProvider charactersProvider =
+        Provider.of<CharactersProvider>(context, listen: false);
 
     return FutureBuilder(
-      future: moviesProvider.creditsMovies(int.parse(itemData.id)),
+      // future: moviesProvider.creditsMovies(int.parse(itemData.id)),
+      future: getCharacters
+          ? comicsProvider.fetchCharactersOfComic(int.parse(itemData.id))
+          : comicsProvider.fetchComicsByCharacterId(int.parse(itemData.id)),
       builder: (_, snapshot) {
         return Scaffold(
           body: CustomScrollView(
@@ -30,7 +39,7 @@ class DetailsScreen extends StatelessWidget {
                   [
                     _PosterAndTitle(itemData: itemData),
                     _Overview(itemData.overview ?? 'no overview'),
-                    CastingCards(items: snapshot.data ?? []),
+                    DetailCards(items: snapshot.data ?? []),
                   ],
                 ),
               ),

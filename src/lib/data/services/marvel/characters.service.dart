@@ -5,9 +5,8 @@ import '../../../domain/models/marvel/models.dart';
 
 class CharactersService extends MarvelServiceBase {
   Future<CharacterDataWrapperModel> fetchCharacters() async {
-    const String endpoint = 'characters';
     var url = makeUrl(
-      endpoint,
+      _baseEndpoint,
       limit: _characterLimitPerPage,
       offSet: (_charactersPage++ - 1) * _characterLimitPerPage,
     );
@@ -19,6 +18,7 @@ class CharactersService extends MarvelServiceBase {
     return decodedResponse;
   }
 
+  final String _baseEndpoint = 'characters';
   final int _characterLimitPerPage = 10;
   int _charactersPage = 1;
 }

@@ -96,7 +96,7 @@ class _ItemPoster extends StatelessWidget {
             onTap: () => Navigator.pushNamed(
               context,
               AppRoutes.getViewRoute(ViewRoutesEnum.detail),
-              arguments: itemData,
+              arguments: {'item': itemData, 'getCharacters': true},
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),

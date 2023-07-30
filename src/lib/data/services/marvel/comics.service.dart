@@ -5,9 +5,8 @@ import '../../../domain/models/marvel/models.dart';
 
 class ComicsService extends MarvelServiceBase {
   Future<ComicDataWrapperModel> fetchComics() async {
-    const String endpoint = 'comics';
-    var url = makeUrl(
-      endpoint,
+    Uri url = makeUrl(
+      _baseEndpoint,
       limit: _comicLimitPerPage,
       offSet: (_comicPage++ - 1) * _comicLimitPerPage,
     );
@@ -19,6 +18,31 @@ class ComicsService extends MarvelServiceBase {
     return decodedResponse;
   }
 
+  Future<ComicDataWrapperModel> fetchComicsByCharacterId(
+      int characterId) async {
+    Uri url = makeUrl(
+      _baseEndpoint,
+      additionalParameters: {'characters': '$characterId'},
+    );
+
+    final response = await http.get(url);
+    final ComicDataWrapperModel decodedResponse =
+        ComicDataWrapperModel.fromJson(response.body);
+
+    return decodedResponse;
+  }
+
+  Future<CharacterDataWrapperModel> fetchCharactersOfComic(int comicId) async {
+    Uri url = makeUrl('$_baseEndpoint/$comicId/characters');
+
+    final response = await http.get(url);
+    final CharacterDataWrapperModel decodedResponse =
+        CharacterDataWrapperModel.fromJson(response.body);
+
+    return decodedResponse;
+  }
+
+  final String _baseEndpoint = 'comics';
   final int _comicLimitPerPage = 10;
   int _comicPage = 1;
 }

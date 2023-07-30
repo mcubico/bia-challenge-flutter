@@ -41,10 +41,11 @@ class HomeScreen extends StatelessWidget {
 
           // Item Slider
           ItemSlider(
-            title: 'Most Popular',
+            // onNextPage: () => moviesProvider.popularMovies(),
+            //title: 'Most Popular',
+            onNextPage: () => comicsProvider.fetch(),
+            title: 'Comics',
             items: sliderItems,
-            onNextPage: () => moviesProvider.popularMovies(),
-            //onNextPage: () => comicsProvider.fetch(),
           ),
         ]),
       ),
