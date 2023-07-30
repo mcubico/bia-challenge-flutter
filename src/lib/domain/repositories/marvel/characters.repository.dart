@@ -19,6 +19,15 @@ class CharactersRepository implements IBasicDataFetchRepository {
     return _convertApiResponseToItemModel(apiResponse.data!.results!);
   }
 
+  Future<List<ItemModel>> searchCharacters(String query) async {
+    CharacterDataWrapperModel apiResponse = await _api.searchCharacters(query);
+    if (apiResponse.data == null || apiResponse.data?.results == null) {
+      return [];
+    }
+
+    return _convertApiResponseToItemModel(apiResponse.data!.results!);
+  }
+
   List<ItemModel> _convertApiResponseToItemModel(
       List<CharacterModel> characters) {
     Iterable<ItemModel> response = characters.map(

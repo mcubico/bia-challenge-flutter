@@ -16,6 +16,21 @@ class CharactersProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<List<ItemModel>> searchCharacters(String? query) async {
+    if (query == null || query.isEmpty) return [];
+
+    if (charactersResultSearch.containsKey(query)) {
+      return charactersResultSearch[query]!;
+    }
+
+    print('Searching characters ($query)');
+    List<ItemModel> response = await _repo.searchCharacters(query);
+    charactersResultSearch[query] = response;
+
+    return response;
+  }
+
   late final CharactersRepository _repo;
   List<ItemModel> characters = [];
+  Map<String, List<ItemModel>> charactersResultSearch = {};
 }

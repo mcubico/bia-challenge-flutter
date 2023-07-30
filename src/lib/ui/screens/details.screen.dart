@@ -22,10 +22,10 @@ class DetailsScreen extends StatelessWidget {
         Provider.of<CharactersProvider>(context, listen: false);
 
     return FutureBuilder(
-      future: moviesProvider.creditsMovie(int.parse(itemData.id)),
-      // future: getCharacters
-      //     ? comicsProvider.fetchCharactersOfComic(int.parse(itemData.id))
-      //     : comicsProvider.fetchComicsByCharacterId(int.parse(itemData.id)),
+      // future: moviesProvider.creditsMovie(int.parse(itemData.id)),
+      future: getCharacters
+          ? comicsProvider.fetchCharactersOfComic(int.parse(itemData.id))
+          : comicsProvider.fetchComicsByCharacterId(int.parse(itemData.id)),
       builder: (_, snapshot) {
         return Scaffold(
           body: CustomScrollView(
@@ -138,11 +138,14 @@ class _PosterAndTitle extends StatelessWidget {
               ),
 
               // Original Title
-              Text(
-                itemData.originalTitle ?? '--',
-                style: textTheme.titleMedium,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
+              SizedBox(
+                width: 300,
+                child: Text(
+                  itemData.originalTitle ?? '--',
+                  style: textTheme.titleMedium,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                ),
               ),
 
               // Vote average

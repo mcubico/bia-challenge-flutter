@@ -18,6 +18,17 @@ class CharactersService extends MarvelServiceBase {
     return decodedResponse;
   }
 
+  Future<CharacterDataWrapperModel> searchCharacters(String query) async {
+    var url =
+        makeUrl(_baseEndpoint, additionalParameters: {'nameStartsWith': query});
+
+    final response = await http.get(url);
+    final CharacterDataWrapperModel decodedResponse =
+        CharacterDataWrapperModel.fromJson(response.body);
+
+    return decodedResponse;
+  }
+
   final String _baseEndpoint = 'characters';
   final int _characterLimitPerPage = 10;
   int _charactersPage = 1;

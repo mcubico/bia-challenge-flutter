@@ -20,15 +20,15 @@ class HomeScreen extends StatelessWidget {
     List<ItemModel> principalItems = [];
     List<ItemModel> sliderItems = [];
 
-    principalItems = moviesProvider.moviesData;
-    sliderItems = moviesProvider.popularMoviesData;
+    // principalItems = moviesProvider.moviesData;
+    // sliderItems = moviesProvider.popularMoviesData;
 
-    // principalItems = charactersProvider.characters;
-    // sliderItems = comicsProvider.comics;
+    principalItems = charactersProvider.characters;
+    sliderItems = comicsProvider.comics;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Marvel Movies'),
+        title: const Text('Marvel Data'),
         elevation: 0,
         centerTitle: true,
         actions: [
@@ -38,7 +38,8 @@ class HomeScreen extends StatelessWidget {
               delegate: ItemSearchDelegate(
                 onSearch: (String query) {
                   return FutureBuilder(
-                    future: moviesProvider.searchMovies(query),
+                    // future: moviesProvider.searchMovies(query),
+                    future: charactersProvider.searchCharacters(query),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
                         return const EmptyResults();
@@ -70,10 +71,10 @@ class HomeScreen extends StatelessWidget {
 
           // Item Slider
           ItemSlider(
-            onNextPage: () => moviesProvider.popularMovies(),
-            title: 'Most Popular',
-            // title: 'Comics',
-            // onNextPage: () => comicsProvider.fetch(),
+            // onNextPage: () => moviesProvider.popularMovies(),
+            // title: 'Most Popular',
+            title: 'Comics',
+            onNextPage: () => comicsProvider.fetch(),
             items: sliderItems,
           ),
         ]),

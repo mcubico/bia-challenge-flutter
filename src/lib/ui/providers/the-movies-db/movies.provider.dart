@@ -41,8 +41,13 @@ class MoviesProvider extends ChangeNotifier {
   Future<List<ItemModel>> searchMovies(String? query) async {
     if (query == null || query.isEmpty) return [];
 
+    if (moviesResultSearch.containsKey(query)) {
+      return moviesResultSearch[query]!;
+    }
+
     print('Searching movies ($query)');
     List<ItemModel> response = await _searchRepo.searchMovies(query);
+    moviesResultSearch[query] = response;
 
     return response;
   }
@@ -52,4 +57,5 @@ class MoviesProvider extends ChangeNotifier {
   List<ItemModel> moviesData = [];
   List<ItemModel> popularMoviesData = [];
   Map<int, List<ItemModel>> moviesCast = {};
+  Map<String, List<ItemModel>> moviesResultSearch = {};
 }
