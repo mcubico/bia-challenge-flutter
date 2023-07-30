@@ -4,7 +4,7 @@ import 'package:src/data/services/marvel/marvel_service_base.dart';
 import '../../../domain/models/marvel/models.dart';
 
 class ComicsService extends MarvelServiceBase {
-  Future<ComicDataWrapperModel> fetch() async {
+  Future<ComicDataWrapperModel> fetchComics() async {
     const String endpoint = 'comics';
     var url = makeUrl(
       endpoint,

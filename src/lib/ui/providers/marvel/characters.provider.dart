@@ -10,7 +10,9 @@ class CharactersProvider extends ChangeNotifier {
   }
 
   Future<void> fetch() async {
+    print('fetching characters');
     characters = await _repo.fetch();
+
     notifyListeners();
   }
 

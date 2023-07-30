@@ -10,8 +10,10 @@ class ComicsProvider extends ChangeNotifier {
   }
 
   Future<void> fetch() async {
+    print('fetching comics');
     List<ItemModel> response = await _repo.fetch();
     comics = [...comics, ...response];
+
     notifyListeners();
   }
 

@@ -11,7 +11,7 @@ class MoviesRepository implements IBasicDataFetchRepository {
 
   @override
   Future<List<ItemModel>> fetch() async {
-    NowPlayingMovieResponseModel apiResponse = await _api.nowPlaying();
+    NowPlayingMovieResponseModel apiResponse = await _api.fetchNowPlaying();
 
     if (apiResponse.results.isEmpty) {
       return [];
@@ -22,7 +22,7 @@ class MoviesRepository implements IBasicDataFetchRepository {
   }
 
   Future<List<ItemModel>> popular() async {
-    PopularMovieResponseModel apiResponse = await _api.popular();
+    PopularMovieResponseModel apiResponse = await _api.fetchPopularMovies();
 
     if (apiResponse.results.isEmpty) {
       return [];
@@ -33,7 +33,8 @@ class MoviesRepository implements IBasicDataFetchRepository {
   }
 
   Future<List<ItemModel>> creditsMovies(int movieId) async {
-    CreditsResponseModel apiResponse = await _api.credits(movieId);
+    CreditsResponseModel apiResponse =
+        await _api.fetchCreditsByMovieId(movieId);
 
     if (apiResponse.cast.isEmpty) {
       return [];

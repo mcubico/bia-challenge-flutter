@@ -19,11 +19,11 @@ class HomeScreen extends StatelessWidget {
     List<ItemModel> principalItems = [];
     List<ItemModel> sliderItems = [];
 
-    //principalItems = charactersProvider.characters;
-    //sliderItems = comicsProvider.comics;
+    // principalItems = moviesProvider.moviesData;
+    // sliderItems = moviesProvider.popularMoviesData;
 
-    principalItems = moviesProvider.moviesData;
-    sliderItems = moviesProvider.popularMoviesData;
+    principalItems = charactersProvider.characters;
+    sliderItems = comicsProvider.comics;
 
     return Scaffold(
       appBar: AppBar(

@@ -11,7 +11,7 @@ class ComicsRepository implements IBasicDataFetchRepository {
 
   @override
   Future<List<ItemModel>> fetch() async {
-    ComicDataWrapperModel apiResponse = await _api.fetch();
+    ComicDataWrapperModel apiResponse = await _api.fetchComics();
     if (apiResponse.data == null || apiResponse.data?.results == null) {
       return [];
     }

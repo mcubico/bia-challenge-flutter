@@ -11,7 +11,7 @@ class CharactersRepository implements IBasicDataFetchRepository {
 
   @override
   Future<List<ItemModel>> fetch() async {
-    CharacterDataWrapperModel apiResponse = await _api.fetch();
+    CharacterDataWrapperModel apiResponse = await _api.fetchCharacters();
     if (apiResponse.data == null || apiResponse.data?.results == null) {
       return [];
     }

@@ -4,7 +4,7 @@ import 'package:src/data/services/the-movie-db/the_movie_db_service_base.dart';
 import '../../../domain/models/the-movies-db/models.dart';
 
 class MoviesService extends TheMovieDbServiceBase {
-  Future<NowPlayingMovieResponseModel> nowPlaying() async {
+  Future<NowPlayingMovieResponseModel> fetchNowPlaying() async {
     const String endpoint = 'now_playing';
     var url = makeUrl(endpoint, page: _nowPlayingPage++);
 
@@ -15,7 +15,7 @@ class MoviesService extends TheMovieDbServiceBase {
     return decodedResponse;
   }
 
-  Future<PopularMovieResponseModel> popular() async {
+  Future<PopularMovieResponseModel> fetchPopularMovies() async {
     const String endpoint = 'popular';
     var url = makeUrl(endpoint, page: _popularPage++);
 
@@ -26,7 +26,7 @@ class MoviesService extends TheMovieDbServiceBase {
     return decodedResponse;
   }
 
-  Future<CreditsResponseModel> credits(int movieId) async {
+  Future<CreditsResponseModel> fetchCreditsByMovieId(int movieId) async {
     String endpoint = '$movieId/credits';
     var url = makeUrl(endpoint);
 
