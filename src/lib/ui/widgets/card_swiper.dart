@@ -40,7 +40,7 @@ class CardSwiper extends StatelessWidget {
             onTap: () => Navigator.pushNamed(
               context,
               AppRoutes.getViewRoute(ViewRoutesEnum.detail),
-              arguments: '',
+              arguments: movie,
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),

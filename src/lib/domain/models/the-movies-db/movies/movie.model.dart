@@ -61,11 +61,11 @@ class MovieModel {
 
   String get fullUrlPosterImg => posterPath != null
       ? 'https://image.tmdb.org/t/p/w500$posterPath'
-      : 'https://i.stack.imgur.com/GNhx0.png';
+      : 'https://img.freepik.com/iconos-gratis/hacker_318-917074.jpg';
 
   String get fullUrlBackDropImg => backdropPath != null
       ? 'https://image.tmdb.org/t/p/w500$backdropPath'
-      : 'https://i.stack.imgur.com/GNhx0.png';
+      : 'https://img.freepik.com/iconos-gratis/hacker_318-917074.jpg';
 
   final String? posterPath;
   final bool adult;

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:src/ui/widgets/casting_cards.dart';
 
 import '../../domain/models/models.dart';
+import '../providers/the-movies-db/providers.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key});
@@ -10,25 +12,32 @@ class DetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final ItemModel itemData =
         ModalRoute.of(context)!.settings.arguments as ItemModel;
+    final MoviesProvider moviesProvider =
+        Provider.of<MoviesProvider>(context, listen: false);
 
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          _CustomAppBar(
-            title: itemData.title ?? 'no-title',
-            posterPathImg: itemData.posterPathImg,
+    return FutureBuilder(
+      future: moviesProvider.creditsMovies(int.parse(itemData.id)),
+      builder: (_, snapshot) {
+        return Scaffold(
+          body: CustomScrollView(
+            slivers: [
+              _CustomAppBar(
+                title: itemData.title ?? 'no-title',
+                posterPathImg: itemData.posterPathImg,
+              ),
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    _PosterAndTitle(itemData: itemData),
+                    _Overview(itemData.overview ?? 'no overview'),
+                    CastingCards(items: snapshot.data ?? []),
+                  ],
+                ),
+              ),
+            ],
           ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                _PosterAndTitle(itemData: itemData),
-                _Overview(itemData.overview ?? 'no overview'),
-                const CastingCards(),
-              ],
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

@@ -32,6 +32,26 @@ class MoviesRepository implements IBasicDataFetchRepository {
     return _convertApiResponseToItemModel(movies);
   }
 
+  Future<List<ItemModel>> creditsMovies(int movieId) async {
+    CreditsResponseModel apiResponse = await _api.credits(movieId);
+
+    if (apiResponse.cast.isEmpty) {
+      return [];
+    }
+
+    final cast = apiResponse.cast;
+    Iterable<ItemModel> response = cast.map(
+      (actor) => ItemModel(
+        posterPathImg: actor.fullUrlPosterImg,
+        id: '${actor.id}',
+        title: actor.name,
+        voteAverage: actor.popularity,
+      ),
+    );
+
+    return response.toList();
+  }
+
   List<ItemModel> _convertApiResponseToItemModel(List<MovieModel> movies) {
     Iterable<ItemModel> response = movies.map(
       (movie) => ItemModel(

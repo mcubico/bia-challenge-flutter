@@ -26,6 +26,17 @@ class MoviesService extends TheMovieDbServiceBase {
     return decodedResponse;
   }
 
+  Future<CreditsResponseModel> credits(int movieId) async {
+    String endpoint = '$movieId/credits';
+    var url = makeUrl(endpoint);
+
+    final response = await http.get(url);
+    final CreditsResponseModel decodedResponse =
+        CreditsResponseModel.fromJson(response.body);
+
+    return decodedResponse;
+  }
+
   int _nowPlayingPage = 1;
   int _popularPage = 1;
 }

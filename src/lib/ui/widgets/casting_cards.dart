@@ -1,25 +1,43 @@
 import 'package:flutter/material.dart';
 
+import '../../domain/models/models.dart';
+
 class CastingCards extends StatelessWidget {
-  const CastingCards({super.key});
+  const CastingCards({
+    super.key,
+    required this.items,
+  });
 
   @override
   Widget build(BuildContext context) {
+    if (items.isEmpty) {
+      return Container(
+        constraints: const BoxConstraints(maxWidth: 150),
+        height: 180,
+        child: const Text(
+          'no data',
+          textAlign: TextAlign.center,
+        ),
+      );
+    }
+
     return Container(
       margin: const EdgeInsets.only(bottom: 30),
       width: double.infinity,
       height: 180,
       child: ListView.builder(
-        itemCount: 10,
+        itemCount: items.length,
         scrollDirection: Axis.horizontal,
-        itemBuilder: (_, int index) => const _CastCard(),
+        itemBuilder: (_, int index) => _CastCard(items[index]),
       ),
     );
   }
+
+  final List<ItemModel> items;
 }
 
 class _CastCard extends StatelessWidget {
-  const _CastCard();
+  const _CastCard(this.item);
 
   @override
   Widget build(BuildContext context) {
@@ -31,23 +49,25 @@ class _CastCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
-            child: const FadeInImage(
-              placeholder: AssetImage('assets/no-image-camera.jpg'),
-              image: NetworkImage('https://via.placeholder.com/150x300'),
+            child: FadeInImage(
+              placeholder: const AssetImage('assets/no-image-camera.jpg'),
+              image: NetworkImage(item.posterPathImg),
               height: 140,
               width: 100,
               fit: BoxFit.cover,
             ),
           ),
-          const Text(
-            'actor.name lastname',
+          Text(
+            item.title!,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: 5)
+          const SizedBox(height: 5)
         ],
       ),
     );
   }
+
+  final ItemModel item;
 }
