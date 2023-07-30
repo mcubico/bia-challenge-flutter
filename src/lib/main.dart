@@ -19,7 +19,11 @@ class AppState extends StatelessWidget {
           lazy: false,
         ),
         ChangeNotifierProvider(
-          create: (context) => CharacterProvider(),
+          create: (context) => CharactersProvider(),
+          lazy: true,
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ComicsProvider(),
           lazy: true,
         )
       ],

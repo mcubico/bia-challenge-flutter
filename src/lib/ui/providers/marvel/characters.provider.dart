@@ -3,8 +3,8 @@ import 'package:src/domain/repositories/marvel/repositories.dart';
 
 import '../../../domain/models/models.dart';
 
-class CharacterProvider extends ChangeNotifier {
-  CharacterProvider() {
+class CharactersProvider extends ChangeNotifier {
+  CharactersProvider() {
     _repo = CharactersRepository();
     fetch();
   }

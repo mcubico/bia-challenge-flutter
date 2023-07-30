@@ -12,14 +12,18 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MoviesProvider moviesProvider = Provider.of<MoviesProvider>(context);
-    final CharacterProvider charactersProvider =
-        Provider.of<CharacterProvider>(context);
+    final CharactersProvider charactersProvider =
+        Provider.of<CharactersProvider>(context);
+    final ComicsProvider comicsProvider = Provider.of<ComicsProvider>(context);
 
-    List<ItemModel> items = [];
-    List<ItemModel> popularItems = moviesProvider.popularMoviesData;
+    List<ItemModel> principalItems = [];
+    List<ItemModel> sliderItems = [];
 
-    items = charactersProvider.characters;
-    items = moviesProvider.moviesData;
+    //principalItems = charactersProvider.characters;
+    //sliderItems = comicsProvider.comics;
+
+    principalItems = moviesProvider.moviesData;
+    sliderItems = moviesProvider.popularMoviesData;
 
     return Scaffold(
       appBar: AppBar(
@@ -30,14 +34,17 @@ class HomeScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(children: [
-          // Principal Movies
-          CardSwiper(items: items),
+          // Principal Items
+          CardSwiper(
+            items: principalItems,
+          ),
 
-          // Slider Movies
+          // Item Slider
           ItemSlider(
             title: 'Most Popular',
-            items: popularItems,
+            items: sliderItems,
             onNextPage: () => moviesProvider.popularMovies(),
+            //onNextPage: () => comicsProvider.fetch(),
           ),
         ]),
       ),

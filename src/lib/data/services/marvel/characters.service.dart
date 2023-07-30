@@ -6,11 +6,11 @@ import '../../../domain/models/marvel/models.dart';
 class CharactersService extends MarvelServiceBase {
   Future<CharacterDataWrapperModel> fetch() async {
     const String endpoint = 'characters';
-    var url = Uri.https(baseUrl, '$segment/$endpoint', {
-      apiKeyLabel: apiKeyValue,
-      'ts': ts.toString(),
-      'hash': hash,
-    });
+    var url = makeUrl(
+      endpoint,
+      limit: _characterLimitPerPage,
+      offSet: (_charactersPage++ - 1) * _characterLimitPerPage,
+    );
 
     final response = await http.get(url);
     final CharacterDataWrapperModel decodedResponse =
@@ -18,4 +18,7 @@ class CharactersService extends MarvelServiceBase {
 
     return decodedResponse;
   }
+
+  final int _characterLimitPerPage = 10;
+  int _charactersPage = 1;
 }

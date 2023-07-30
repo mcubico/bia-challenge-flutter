@@ -41,7 +41,7 @@ class MoviesRepository implements IBasicDataFetchRepository {
         overview: movie.overview,
         originalTitle: movie.originalTitle,
         voteAverage: movie.voteAverage,
-        backDropPathImg: movie.fullUrlBackDropImg
+        backDropPathImg: movie.fullUrlBackDropImg,
       ),
     );
 

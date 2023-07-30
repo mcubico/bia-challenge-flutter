@@ -21,33 +21,37 @@ class CharacterModel {
       CharacterModel.fromMap(jsonDecode(str));
 
   factory CharacterModel.fromMap(Map<String, dynamic> json) => CharacterModel(
-        id: json["id"],
-        name: json["name"],
-        description: json["description"],
-        modified: json["modified"],
-        thumbnail: ThumbnailModel.fromMap(json["thumbnail"]),
-        resourceUri: json["resourceURI"],
-        comics: ItemListModel.fromMap(json["comics"]),
-        series: ItemListModel.fromMap(json["series"]),
-        stories: ItemListModel.fromMap(json["stories"]),
-        events: ItemListModel.fromMap(json["events"]),
-        urls: List<UrlModel>.from(json["urls"].map((x) => UrlModel.fromMap(x))),
+        id: json[idDataName],
+        name: json[nameDataName],
+        description: json[descriptionDataName],
+        modified: json[modifiedDataName],
+        thumbnail: ThumbnailModel.fromMap(json[thumbnailDataName]),
+        resourceUri: json[resourceUriDataName],
+        comics: ItemListModel.fromMap(json[comicsDataName]),
+        series: ItemListModel.fromMap(json[seriesDataName]),
+        stories: ItemListModel.fromMap(json[storiesDataName]),
+        events: ItemListModel.fromMap(json[eventsDataName]),
+        urls: List<UrlModel>.from(
+          json[urlsDataName].map(
+            (x) => UrlModel.fromMap(x),
+          ),
+        ),
       );
 
   String toJson() => jsonEncode(toMap());
 
   Map<String, dynamic> toMap() => {
-        "id": id,
-        "name": name,
-        "description": description,
-        "modified": modified,
-        "thumbnail": thumbnail?.toMap(),
-        "resourceURI": resourceUri,
-        "comics": comics?.toMap(),
-        "series": series?.toMap(),
-        "stories": stories?.toMap(),
-        "events": events?.toMap(),
-        "urls":
+        idDataName: id,
+        nameDataName: name,
+        descriptionDataName: description,
+        modifiedDataName: modified,
+        thumbnailDataName: thumbnail?.toMap(),
+        resourceUriDataName: resourceUri,
+        comicsDataName: comics?.toMap(),
+        seriesDataName: series?.toMap(),
+        storiesDataName: stories?.toMap(),
+        eventsDataName: events?.toMap(),
+        urlsDataName:
             urls != null ? List<dynamic>.from(urls!.map((x) => x.toMap())) : [],
       };
 
@@ -66,4 +70,16 @@ class CharacterModel {
   final ItemListModel? stories;
   final ItemListModel? events;
   final List<UrlModel>? urls;
+
+  static String idDataName = 'id';
+  static String nameDataName = 'name';
+  static String descriptionDataName = 'description';
+  static String modifiedDataName = 'modified';
+  static String thumbnailDataName = 'thumbnail';
+  static String resourceUriDataName = 'resourceUri';
+  static String comicsDataName = 'comics';
+  static String seriesDataName = 'series';
+  static String storiesDataName = 'stories';
+  static String eventsDataName = 'events';
+  static String urlsDataName = 'urls';
 }

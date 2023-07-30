@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:src/domain/models/marvel/models.dart';
 
-class CharacterDataContainerModel extends DataContainerBaseModel {
-  CharacterDataContainerModel({
+class ComicDataContainerModel extends DataContainerBaseModel {
+  ComicDataContainerModel({
     super.offset,
     super.limit,
     super.total,
@@ -10,22 +10,22 @@ class CharacterDataContainerModel extends DataContainerBaseModel {
     this.results,
   });
 
-  factory CharacterDataContainerModel.fromJson(String data) =>
-      CharacterDataContainerModel.fromMap(jsonDecode(data));
+  factory ComicDataContainerModel.fromJson(String data) =>
+      ComicDataContainerModel.fromMap(jsonDecode(data));
 
-  factory CharacterDataContainerModel.fromMap(Map<String, dynamic> jsonData) =>
-      CharacterDataContainerModel(
+  factory ComicDataContainerModel.fromMap(Map<String, dynamic> jsonData) =>
+      ComicDataContainerModel(
         offset: jsonData[DataContainerBaseModel.offsetDataName],
         limit: jsonData[DataContainerBaseModel.limitDataName],
         total: jsonData[DataContainerBaseModel.totalDataName],
         count: jsonData[DataContainerBaseModel.countDataName],
-        results: List<CharacterModel>.from(
+        results: List<ComicModel>.from(
           jsonData[DataContainerBaseModel.resultsDataName].map(
-            (x) => CharacterModel.fromMap(x),
+            (x) => ComicModel.fromMap(x),
           ),
         ),
       );
 
   @override
-  final List<CharacterModel>? results;
+  final List<ComicModel>? results;
 }

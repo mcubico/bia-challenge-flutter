@@ -7,6 +7,16 @@ class TheMovieDbServiceBase {
     segment = '3/movie';
   }
 
+  makeUrl(String endpoint, {int page = 1}) => Uri.https(
+        baseUrl,
+        '$segment/$endpoint/',
+        {
+          apiKeyLabel: apiKeyValue,
+          'language': language,
+          'page': '$page',
+        },
+      );
+
   late final String apiKeyLabel;
   late final String apiKeyValue;
   late final String baseUrl;

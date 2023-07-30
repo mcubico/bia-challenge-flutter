@@ -6,7 +6,10 @@ import 'package:src/ui/helpers/enumerators/view_routes.enum.helper.dart';
 import '../../router/app_router.dart';
 
 class CardSwiper extends StatelessWidget {
-  const CardSwiper({super.key, required this.items});
+  const CardSwiper({
+    super.key,
+    required this.items,
+  });
 
   @override
   Widget build(BuildContext context) {

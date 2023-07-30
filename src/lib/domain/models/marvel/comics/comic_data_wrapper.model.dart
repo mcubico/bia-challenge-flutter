@@ -1,8 +1,8 @@
 import 'dart:convert';
 import '../models.dart';
 
-class CharacterDataWrapperModel extends DataWrapperBaseModel {
-  CharacterDataWrapperModel({
+class ComicDataWrapperModel extends DataWrapperBaseModel {
+  ComicDataWrapperModel({
     super.code,
     super.status,
     super.copyright,
@@ -12,22 +12,22 @@ class CharacterDataWrapperModel extends DataWrapperBaseModel {
     this.data,
   });
 
-  factory CharacterDataWrapperModel.fromJson(String data) =>
-      CharacterDataWrapperModel.fromMap(jsonDecode(data));
+  factory ComicDataWrapperModel.fromJson(String data) =>
+      ComicDataWrapperModel.fromMap(jsonDecode(data));
 
-  factory CharacterDataWrapperModel.fromMap(Map<String, dynamic> jsonData) =>
-      CharacterDataWrapperModel(
+  factory ComicDataWrapperModel.fromMap(Map<String, dynamic> jsonData) =>
+      ComicDataWrapperModel(
         code: jsonData[DataWrapperBaseModel.codeDataName],
         status: jsonData[DataWrapperBaseModel.statusDataName],
         copyright: jsonData[DataWrapperBaseModel.copyrightDataName],
         attributionText: jsonData[DataWrapperBaseModel.attributionTextDataName],
         attributionHtml: jsonData[DataWrapperBaseModel.attributionHtmlDataName],
         etag: jsonData[DataWrapperBaseModel.etagDataName],
-        data: CharacterDataContainerModel.fromMap(
+        data: ComicDataContainerModel.fromMap(
           jsonData[DataWrapperBaseModel.dataDataName],
         ),
       );
 
   @override
-  final CharacterDataContainerModel? data;
+  final ComicDataContainerModel? data;
 }
