@@ -4,6 +4,8 @@ import 'package:src/data/services/the-movie-db/the_movie_db_service_base.dart';
 import '../../../domain/models/the-movies-db/models.dart';
 
 class MoviesService extends TheMovieDbServiceBase {
+  MoviesService() : super(segment: '3/movie');
+
   Future<NowPlayingMovieResponseModel> fetchNowPlaying() async {
     const String endpoint = 'now_playing';
     Uri url = makeUrl(endpoint, page: _nowPlayingPage++);

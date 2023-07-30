@@ -1,25 +1,36 @@
 class TheMovieDbServiceBase {
-  TheMovieDbServiceBase() {
-    apiKeyLabel = 'api_key';
-    apiKeyValue = '4613309449858363e0d3f3dec0565901';
-    baseUrl = 'api.themoviedb.org';
-    language = 'es-Es';
-    segment = '3/movie';
+  TheMovieDbServiceBase({required this.segment, this.language = 'es-Es'}) {
+    _apiKeyLabel = 'api_key';
+    _apiKeyValue = '4613309449858363e0d3f3dec0565901';
+    _baseUrl = 'api.themoviedb.org';
   }
 
-  makeUrl(String endpoint, {int page = 1}) => Uri.https(
-        baseUrl,
-        '$segment/$endpoint',
-        {
-          apiKeyLabel: apiKeyValue,
-          'language': language,
-          'page': '$page',
-        },
-      );
+  Uri makeUrl(
+    String endpoint, {
+    int page = 1,
+    Map<String, dynamic>? additionalParameters,
+  }) {
+    Map<String, dynamic> queryParameters = {
+      _apiKeyLabel: _apiKeyValue,
+      'language': language,
+      'page': '$page',
+    };
 
-  late final String apiKeyLabel;
-  late final String apiKeyValue;
-  late final String baseUrl;
-  late final String language;
+    if (additionalParameters != null) {
+      queryParameters.addAll(additionalParameters);
+    }
+
+    return Uri.https(
+      _baseUrl,
+      '$segment/$endpoint',
+      queryParameters,
+    );
+  }
+
   late final String segment;
+  late final String? language;
+
+  late final String _apiKeyLabel;
+  late final String _apiKeyValue;
+  late final String _baseUrl;
 }

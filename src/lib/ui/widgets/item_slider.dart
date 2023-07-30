@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:src/domain/models/models.dart';
-import 'package:src/router/app_router.dart';
-
-import '../helpers/helpers.dart';
+import 'package:src/ui/widgets/widgets.dart';
 
 class ItemSlider extends StatefulWidget {
   const ItemSlider({
@@ -61,7 +59,7 @@ class _ItemSliderState extends State<ItemSlider> {
               controller: scrollController,
               scrollDirection: Axis.horizontal,
               itemCount: widget.items.length,
-              itemBuilder: (context, index) => _ItemPoster(
+              itemBuilder: (context, index) => ItemPoster(
                 itemData: widget.items[index],
               ),
             ),
@@ -77,49 +75,4 @@ class _ItemSliderState extends State<ItemSlider> {
   }
 
   final scrollController = ScrollController();
-}
-
-class _ItemPoster extends StatelessWidget {
-  const _ItemPoster({
-    required this.itemData,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 130,
-      height: 190,
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: Column(
-        children: [
-          GestureDetector(
-            onTap: () => Navigator.pushNamed(
-              context,
-              AppRoutes.getViewRoute(ViewRoutesEnum.detail),
-              arguments: {'item': itemData, 'getCharacters': true},
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: FadeInImage(
-                placeholder: const AssetImage('assets/no-image-camera.jpg'),
-                image: NetworkImage(itemData.posterPathImg),
-                fit: BoxFit.cover,
-                width: 130,
-                height: 190,
-              ),
-            ),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            itemData.title ?? 'no-name',
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    );
-  }
-
-  final ItemModel itemData;
 }

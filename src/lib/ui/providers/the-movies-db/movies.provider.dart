@@ -5,39 +5,50 @@ import '../../../domain/models/models.dart';
 
 class MoviesProvider extends ChangeNotifier {
   MoviesProvider() {
-    _repo = MoviesRepository();
+    _moviesRepo = MoviesRepository();
+    _searchRepo = SearchRepository();
     nowPlayingMovies();
     popularMovies();
   }
 
   Future<void> nowPlayingMovies() async {
     print('Fetching now playing movies');
-    moviesData = await _repo.fetch();
+    moviesData = await _moviesRepo.fetch();
 
     notifyListeners();
   }
 
   Future<void> popularMovies() async {
     print('Fetching popular movies');
-    List<ItemModel> response = await _repo.popular();
+    List<ItemModel> response = await _moviesRepo.popular();
     popularMoviesData = [...popularMoviesData, ...response];
 
     notifyListeners();
   }
 
-  Future<List<ItemModel>> creditsMovies(int movieId) async {
+  Future<List<ItemModel>> creditsMovie(int movieId) async {
     if (moviesCast.containsKey(movieId)) {
       return moviesCast[movieId]!;
     }
 
     print('Fetching credits movies ($movieId)');
-    List<ItemModel> response = await _repo.creditsMovies(movieId);
+    List<ItemModel> response = await _moviesRepo.creditsMovie(movieId);
     moviesCast[movieId] = response;
 
     return response;
   }
 
-  late final MoviesRepository _repo;
+  Future<List<ItemModel>> searchMovies(String? query) async {
+    if (query == null || query.isEmpty) return [];
+
+    print('Searching movies ($query)');
+    List<ItemModel> response = await _searchRepo.searchMovies(query);
+
+    return response;
+  }
+
+  late final MoviesRepository _moviesRepo;
+  late final SearchRepository _searchRepo;
   List<ItemModel> moviesData = [];
   List<ItemModel> popularMoviesData = [];
   Map<int, List<ItemModel>> moviesCast = {};

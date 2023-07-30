@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:src/domain/models/models.dart';
+import 'package:src/ui/widgets/delegates/delegates.dart';
 import 'package:src/ui/widgets/widgets.dart';
 
 import '../providers/marvel/providers.dart';
@@ -19,18 +20,46 @@ class HomeScreen extends StatelessWidget {
     List<ItemModel> principalItems = [];
     List<ItemModel> sliderItems = [];
 
-    // principalItems = moviesProvider.moviesData;
-    // sliderItems = moviesProvider.popularMoviesData;
+    principalItems = moviesProvider.moviesData;
+    sliderItems = moviesProvider.popularMoviesData;
 
-    principalItems = charactersProvider.characters;
-    sliderItems = comicsProvider.comics;
+    // principalItems = charactersProvider.characters;
+    // sliderItems = comicsProvider.comics;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Marvel Movies'),
         elevation: 0,
         centerTitle: true,
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
+        actions: [
+          IconButton(
+            onPressed: () => showSearch(
+              context: context,
+              delegate: ItemSearchDelegate(
+                onSearch: (String query) {
+                  return FutureBuilder(
+                    future: moviesProvider.searchMovies(query),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return const EmptyResults();
+                      }
+
+                      final items = snapshot.data ?? [];
+
+                      return ListView.builder(
+                        itemCount: items.length,
+                        itemBuilder: (context, index) => ItemSearchPoster(
+                          itemData: items[index],
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+            icon: const Icon(Icons.search),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(children: [
@@ -41,10 +70,10 @@ class HomeScreen extends StatelessWidget {
 
           // Item Slider
           ItemSlider(
-            // onNextPage: () => moviesProvider.popularMovies(),
-            //title: 'Most Popular',
-            onNextPage: () => comicsProvider.fetch(),
-            title: 'Comics',
+            onNextPage: () => moviesProvider.popularMovies(),
+            title: 'Most Popular',
+            // title: 'Comics',
+            // onNextPage: () => comicsProvider.fetch(),
             items: sliderItems,
           ),
         ]),

@@ -32,7 +32,7 @@ class MoviesRepository implements IBasicDataFetchRepository {
     return _convertApiResponseToItemModel(movies);
   }
 
-  Future<List<ItemModel>> creditsMovies(int movieId) async {
+  Future<List<ItemModel>> creditsMovie(int movieId) async {
     CreditsResponseModel apiResponse =
         await _api.fetchCreditsByMovieId(movieId);
 

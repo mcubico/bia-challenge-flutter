@@ -22,10 +22,10 @@ class DetailsScreen extends StatelessWidget {
         Provider.of<CharactersProvider>(context, listen: false);
 
     return FutureBuilder(
-      // future: moviesProvider.creditsMovies(int.parse(itemData.id)),
-      future: getCharacters
-          ? comicsProvider.fetchCharactersOfComic(int.parse(itemData.id))
-          : comicsProvider.fetchComicsByCharacterId(int.parse(itemData.id)),
+      future: moviesProvider.creditsMovie(int.parse(itemData.id)),
+      // future: getCharacters
+      //     ? comicsProvider.fetchCharactersOfComic(int.parse(itemData.id))
+      //     : comicsProvider.fetchComicsByCharacterId(int.parse(itemData.id)),
       builder: (_, snapshot) {
         return Scaffold(
           body: CustomScrollView(
