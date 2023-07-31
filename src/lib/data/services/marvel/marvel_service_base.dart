@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class MarvelServiceBase {
   MarvelServiceBase() {
-    _apiKeyValue = pubKey;
     _ts = DateTime.timestamp().millisecondsSinceEpoch;
-    _hash = md5.convert(utf8.encode('$_ts$privKey$pubKey')).toString();
+    _hash = md5.convert(utf8.encode('$_ts$_privKey$_pubKey')).toString();
   }
 
   Uri makeUrl(
@@ -16,9 +16,9 @@ class MarvelServiceBase {
     Map<String, dynamic>? additionalParameters,
   }) {
     Map<String, dynamic> queryParameters = {
-      apiKeyLabel: apiKeyValue,
-      'ts': '$ts',
-      'hash': hash,
+      _apiKeyLabel: _apiKeyValue,
+      'ts': '$_ts',
+      'hash': _hash,
     };
 
     if (additionalParameters != null) {
@@ -31,22 +31,19 @@ class MarvelServiceBase {
     }
 
     return Uri.https(
-      baseUrl,
-      '$segment/$endpoint',
+      _baseUrl,
+      '$_segment/$endpoint',
       queryParameters,
     );
   }
 
-  String get pubKey => 'ed3a002321f17332118f942cf8ab9499';
-  String get privKey => '3ad582cc225e26ee60f24eb388f429d8df6cf60a';
-  String get apiKeyLabel => 'apikey';
-  String get baseUrl => 'gateway.marvel.com';
-  String get segment => '/v1/public';
-  String get apiKeyValue => _apiKeyValue;
-  int get ts => _ts;
-  String get hash => _hash;
+  final String _pubKey = dotenv.get('MARVEL_PUB_KEY');
+  final String _privKey = dotenv.get('MARVEL_PRIV_KEY');
+  final String _apiKeyLabel = dotenv.get('MARVEL_API_KEY_LABEL');
+  final String _baseUrl = dotenv.get('MARVEL_BASE_URL');
+  final String _segment = dotenv.get('MARVEL_URL_SEGMENT');
+  final String _apiKeyValue = dotenv.get('MARVEL_API_KEY_VALUE');
 
-  late final String _apiKeyValue;
   late final int _ts;
   late final String _hash;
 }
