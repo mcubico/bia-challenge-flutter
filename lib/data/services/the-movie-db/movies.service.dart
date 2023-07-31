@@ -1,0 +1,44 @@
+import 'package:http/http.dart' as http;
+import 'package:marvel_finder/data/services/the-movie-db/the_movie_db_service_base.dart';
+
+import '../../../domain/models/the-movies-db/models.dart';
+
+class MoviesService extends TheMovieDbServiceBase {
+  MoviesService() : super(segment: '3/movie');
+
+  Future<NowPlayingMovieResponseModel> fetchNowPlaying() async {
+    const String endpoint = 'now_playing';
+    Uri url = makeUrl(endpoint, page: _nowPlayingPage++);
+
+    final response = await http.get(url);
+    final NowPlayingMovieResponseModel decodedResponse =
+        NowPlayingMovieResponseModel.fromJson(response.body);
+
+    return decodedResponse;
+  }
+
+  Future<PopularMovieResponseModel> fetchPopularMovies() async {
+    const String endpoint = 'popular';
+    Uri url = makeUrl(endpoint, page: _popularPage++);
+
+    final response = await http.get(url);
+    final PopularMovieResponseModel decodedResponse =
+        PopularMovieResponseModel.fromJson(response.body);
+
+    return decodedResponse;
+  }
+
+  Future<CreditsResponseModel> fetchCreditsByMovieId(int movieId) async {
+    String endpoint = '$movieId/credits';
+    Uri url = makeUrl(endpoint);
+
+    final response = await http.get(url);
+    final CreditsResponseModel decodedResponse =
+        CreditsResponseModel.fromJson(response.body);
+
+    return decodedResponse;
+  }
+
+  int _nowPlayingPage = 1;
+  int _popularPage = 1;
+}

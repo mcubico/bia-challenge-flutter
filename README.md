@@ -17,8 +17,15 @@ En este repositorio encontrarás el código fuente de una pequeña aplicación d
 
 ### Descargue el repositorio desde GitHub
 
-````shell
+```shell
 git clone https://github.com/mcubico/bia-challenge-flutter.git
+```
+
+y después
+
+```shell
+pub get
+```
 
 ## Variables de entorno
 
@@ -31,15 +38,14 @@ MARVEL_API_KEY_LABEL=
 MARVEL_API_KEY_VALUE=
 MARVEL_BASE_URL=
 MARVEL_URL_SEGMENT=
-````
+```
 
 Las demás variables deben ser diligenciadas con los datos de la cuenta de [marvel](http://developer.marvel.com/)
 
 ## Colaboración
 
-Todas las sugerencias y pull request son bienvenidos. Para cambios críticos por favor abra un issue
-primero para que lo revisemos.
+Todas las sugerencias y pull request son bienvenidos. Para cambios críticos por favor abra un issue primero para que lo revisemos.
 
-## License
+## Licencia
 
 [MIT](https://choosealicense.com/licenses/mit/)
