@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marvel_finder/config/config.dart';
 import 'package:marvel_finder/ui/providers/marvel/providers.dart';
 import 'package:marvel_finder/ui/widgets/detail_cards.dart';
 import 'package:provider/provider.dart';
@@ -82,7 +83,7 @@ class _CustomAppBar extends StatelessWidget {
           ),
         ),
         background: FadeInImage(
-          placeholder: const AssetImage('assets/loading.gif'),
+          placeholder: AssetImage(assetsEnvConfig.loadingImg),
           image: NetworkImage(posterPathImg),
           fit: BoxFit.cover,
         ),
@@ -111,7 +112,7 @@ class _PosterAndTitle extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: FadeInImage(
               height: 100,
-              placeholder: const AssetImage('assets/no-image-camera.jpg'),
+              placeholder: AssetImage(assetsEnvConfig.noImageCamera),
               image: NetworkImage(
                 itemData.backDropPathImg ?? itemData.posterPathImg,
               ),

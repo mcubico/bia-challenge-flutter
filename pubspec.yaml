@@ -27,6 +27,5 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/.env
-    - assets/loading.gif
-    - assets/no-image-camera.jpg
+    - assets/env/
+    - assets/img/

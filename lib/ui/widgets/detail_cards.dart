@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marvel_finder/config/config.dart';
 
 import '../../domain/models/models.dart';
 
@@ -50,7 +51,7 @@ class _DetailCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: FadeInImage(
-              placeholder: const AssetImage('assets/no-image-camera.jpg'),
+              placeholder: AssetImage(assetsEnvConfig.noImageCamera),
               image: NetworkImage(item.posterPathImg),
               height: 140,
               width: 100,

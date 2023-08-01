@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:marvel_finder/config/config.dart';
 import 'package:marvel_finder/domain/repositories/marvel/repositories.dart';
 
 import '../../../domain/models/models.dart';
 
 class CharactersProvider extends ChangeNotifier {
   CharactersProvider() {
-    _repo = CharactersRepository();
+    _repo = CharactersRepository(apiEnvConfig);
     fetch();
   }
 

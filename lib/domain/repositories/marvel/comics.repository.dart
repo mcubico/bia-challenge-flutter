@@ -1,15 +1,14 @@
-import 'package:marvel_finder/domain/interfaces/interfaces.dart';
 import 'package:marvel_finder/domain/models/models.dart';
 
 import '../../../data/services/marvel/services.dart';
 import '../../models/marvel/models.dart';
+import 'base.repository.dart';
 
-class ComicsRepository implements IBasicDataFetchRepository {
-  ComicsRepository() {
-    _api = ComicsService();
+class ComicsRepository extends BaseRepository {
+  ComicsRepository(super.env) {
+    _api = ComicsService(env);
   }
 
-  @override
   Future<List<ItemModel>> fetch() async {
     ComicDataWrapperModel apiResponse = await _api.fetchComics();
     if (apiResponse.data == null || apiResponse.data?.results == null) {

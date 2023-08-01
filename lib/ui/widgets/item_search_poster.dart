@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marvel_finder/config/config.dart';
 
 import '../../domain/models/models.dart';
 import '../../router/app_router.dart';
@@ -14,7 +15,7 @@ class ItemSearchPoster extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: FadeInImage(
-        placeholder: const AssetImage('assets/no-image-camera.jpg'),
+        placeholder: AssetImage(assetsEnvConfig.noImageCamera),
         image: NetworkImage(itemData.posterPathImg),
         width: 50,
         fit: BoxFit.contain,

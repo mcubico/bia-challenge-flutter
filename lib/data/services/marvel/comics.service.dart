@@ -4,6 +4,8 @@ import 'package:marvel_finder/data/services/marvel/marvel_service_base.dart';
 import '../../../domain/models/marvel/models.dart';
 
 class ComicsService extends MarvelServiceBase {
+  ComicsService(super.env);
+
   Future<ComicDataWrapperModel> fetchComics() async {
     Uri url = makeUrl(
       _baseEndpoint,

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:marvel_finder/config/config.dart';
 
 import '../../domain/models/models.dart';
 import '../../router/app_router.dart';
@@ -27,7 +28,7 @@ class ItemPoster extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
-                placeholder: const AssetImage('assets/no-image-camera.jpg'),
+                placeholder: AssetImage(assetsEnvConfig.noImageCamera),
                 image: NetworkImage(itemData.posterPathImg),
                 fit: BoxFit.cover,
                 width: 130,

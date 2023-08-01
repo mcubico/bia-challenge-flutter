@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:marvel_finder/router/app_router.dart';
-import 'package:marvel_finder/ui/providers/the-movies-db/movies.provider.dart';
+import 'package:marvel_finder/ui/providers/the-movies-db/providers.dart';
 import 'package:provider/provider.dart';
 
 import 'ui/providers/marvel/providers.dart';
 
 Future main() async {
-  await dotenv.load(fileName: 'assets/.env');
+  await dotenv.load(fileName: 'assets/env/.env');
   runApp(const AppState());
 }
 

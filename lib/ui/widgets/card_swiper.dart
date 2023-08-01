@@ -1,5 +1,6 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:marvel_finder/config/config.dart';
 import 'package:marvel_finder/domain/models/models.dart';
 import 'package:marvel_finder/ui/helpers/enumerators/view_routes.enum.helper.dart';
 
@@ -45,7 +46,7 @@ class CardSwiper extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
-                placeholder: const AssetImage('assets/no-image-camera.jpg'),
+                placeholder: AssetImage(assetsEnvConfig.noImageCamera),
                 image: NetworkImage(item.posterPathImg),
                 fit: BoxFit.cover,
               ),
